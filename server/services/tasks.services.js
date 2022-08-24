@@ -47,9 +47,23 @@ const deleteOne = async (id) => {
   }
 }
 
+const update = async (taskId, updatedTask) => {
+  try {
+    const [result] = await pool.query(
+      'UPDATE tasks SET ? WHERE id = ?',
+      [updatedTask, taskId]
+    )
+    return result
+  } catch (err) {
+    console.error(err.message)
+    return null
+  }
+}
+
 export default {
   getAll,
   getOne,
   add,
-  deleteOne
+  deleteOne,
+  update,
 }

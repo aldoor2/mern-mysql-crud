@@ -16,9 +16,7 @@ export const getTasks = async (req, res) => {
 }
 
 export const getTask = async (req, res) => {
-  const { id } = req.params
-
-  const result = await tasksService.getOne(id)
+  const result = await tasksService.getOne(req.params.id)
 
   if (!result)
     return res.status(404).json({ status: 'Error', message: 'Task not found' })
@@ -42,7 +40,7 @@ export const createTask = async (req, res) => {
     })
 
   return res.status(201).json({
-    status: 'OK',
+    status: 'Success',
     data: {
       id: insertId,
       title,
@@ -52,9 +50,7 @@ export const createTask = async (req, res) => {
 }
 
 export const deleteTask = async (req, res) => {
-  const { id } = req.params
-
-  const result = await tasksService.deleteOne(id)
+  const result = await tasksService.deleteOne(req.params.id)
 
   if (result === 0 || result === null)
     return res.status(404).json({
@@ -64,6 +60,15 @@ export const deleteTask = async (req, res) => {
   return res.sendStatus(204)
 }
 
-export const updateTask = (req, res) => {
-  res.send('updating task')
+export const updateTask = async (req, res) => {
+  const result = await tasksService.update(req.params.id, req.body)
+
+  if (result.affectedRows === 0 || result === null)
+    return res.status(404).json({
+      status: 'Error', data: { message: 'Task not found' }
+    })
+
+  return res.json({
+    status: 'Success', data: { ...req.body, id: req.params.id }
+  })
 }
