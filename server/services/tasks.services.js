@@ -20,7 +20,22 @@ const getById = async (id) => {
   }
 }
 
+const add = async (newTask) => {
+  const { title, description } = newTask
+  try {
+    const [result] = await pool.query(
+      'INSERT INTO tasks (title, description) VALUES (?, ?)',
+      [title, description]
+    )
+    return result.insertId
+  } catch (e) {
+    console.log(e.message)
+    return null
+  }
+}
+
 export default {
   get,
-  getById
+  getById,
+  add
 }

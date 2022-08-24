@@ -6,6 +6,9 @@ import tasksRouter from './routes/tasks.routes.js'
 // Inilization
 const app = express()
 
+// Middlewares
+app.use(express.json())
+
 // Routes
 app.use(indexRouter)
 app.use('/api/tasks', tasksRouter)
