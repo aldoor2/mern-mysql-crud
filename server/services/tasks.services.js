@@ -5,7 +5,7 @@ const getAll = async () => {
     const [result] = await pool.query('SELECT * FROM tasks ORDER BY createdAt DESC')
     return result
   } catch (e) {
-    console.log(e.message)
+    console.error(e.message)
     return null
   }
 }
@@ -15,7 +15,7 @@ const getOne = async (id) => {
     const [result] = await pool.query('SELECT * FROM tasks WHERE id = ?', [id])
     return result[0]
   } catch (e) {
-    console.log(e.message)
+    console.error(e.message)
     return null
   }
 }
@@ -29,7 +29,20 @@ const add = async (newTask) => {
     )
     return result.insertId
   } catch (e) {
-    console.log(e.message)
+    console.error(e.message)
+    return null
+  }
+}
+
+const deleteOne = async (id) => {
+  try {
+    const [result] = await pool.query(
+      'DELETE FROM tasks WHERE id = ?',
+      [id]
+    )
+    return result.affectedRows
+  } catch (e) {
+    console.error(e.message)
     return null
   }
 }
@@ -37,5 +50,6 @@ const add = async (newTask) => {
 export default {
   getAll,
   getOne,
-  add
+  add,
+  deleteOne
 }

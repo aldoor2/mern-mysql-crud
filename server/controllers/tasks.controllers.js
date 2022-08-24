@@ -51,10 +51,19 @@ export const createTask = async (req, res) => {
   })
 }
 
-export const updateTask = (req, res) => {
-  res.send('updating task')
+export const deleteTask = async (req, res) => {
+  const { id } = req.params
+
+  const result = await tasksService.deleteOne(id)
+
+  if (result === 0 || result === null)
+    return res.status(404).json({
+      status: 'Error', data: { message: 'Task not found' }
+    })
+
+  return res.sendStatus(204)
 }
 
-export const deleteTask = (req, res) => {
-  res.send('deleting task')
+export const updateTask = (req, res) => {
+  res.send('updating task')
 }
