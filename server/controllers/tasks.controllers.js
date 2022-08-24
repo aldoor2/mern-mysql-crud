@@ -1,22 +1,29 @@
 import tasksService from '../services/tasks.services.js'
 
 export const getTasks = async (req, res) => {
-  try {
-    const result = await tasksService.get()
-    console.log(result)
+  const result = await tasksService.getAll()
 
-    if (!result) {
-      return res.status(500).json({ status: 'Error', data: { message: 'Internal error' } })
-    }
-
-    return res.json(result)
-  } catch (error) {
-    return res.status(500).json({ status: 'Error', data: { message: error.message } })
+  if (!result) {
+    return res.status(500).json({ status: 'Error', data: { message: 'Oops, something went wrong' } })
   }
+
+  const tasks = result.map(task => ({
+    ...task,
+    done: Boolean(task.done)
+  }))
+
+  return res.json({ status: 'OK', data: tasks })
 }
 
-export const getTask = (req, res) => {
-  res.send('getting task')
+export const getTask = async (req, res) => {
+  const { id } = req.params
+
+  const result = await tasksService.getOne(id)
+
+  if (!result)
+    return res.status(404).json({ status: 'Error', message: 'Task not found' })
+
+  return res.json({ status: 'OK', data: result })
 }
 
 export const createTask = async (req, res) => {

@@ -1,19 +1,19 @@
 import { pool } from '../db.js'
 
-const get = async () => {
+const getAll = async () => {
   try {
-    const res = await pool.query('SELECT * FROM tasks')
-    return res.rows[0]
+    const [result] = await pool.query('SELECT * FROM tasks ORDER BY createdAt DESC')
+    return result
   } catch (e) {
     console.log(e.message)
     return null
   }
 }
 
-const getById = async (id) => {
+const getOne = async (id) => {
   try {
-    const res = await pool.query('SELECT * FROM tasks WHERE id=$1', [id])
-    return res.rows[0]
+    const [result] = await pool.query('SELECT * FROM tasks WHERE id = ?', [id])
+    return result[0]
   } catch (e) {
     console.log(e.message)
     return null
@@ -35,7 +35,7 @@ const add = async (newTask) => {
 }
 
 export default {
-  get,
-  getById,
+  getAll,
+  getOne,
   add
 }
