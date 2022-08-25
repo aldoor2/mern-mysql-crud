@@ -9,3 +9,6 @@ export const createTaskRequest = async (task) =>
     task,
     { headers: { 'Content-Type': 'application/json' } },
   )
+
+export const deleteTaskRequest = async (id) =>
+  await axios.delete(`http://localhost:4000/api/tasks/${id}`)

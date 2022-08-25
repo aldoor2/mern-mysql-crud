@@ -15,13 +15,15 @@ function TasksPage() {
     loadTasks();
   }, []);
 
+  function renderMain() {
+    if (tasks.length === 0) return <span>No tasks yet</span>;
+    return tasks.map((task) => <TaskCard key={task.id} task={task} />);
+  }
+
   return (
     <div>
       <h1>Tasks</h1>
-
-      {tasks.map((task) => (
-        <TaskCard key={task.id} task={task} />
-      ))}
+      {renderMain()}
     </div>
   );
 }
