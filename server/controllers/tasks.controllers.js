@@ -21,7 +21,11 @@ export const getTask = async (req, res) => {
   if (!result)
     return res.status(404).json({ status: 'Error', message: 'Task not found' })
 
-  return res.json({ status: 'OK', data: result })
+  return res.json({
+    status: 'OK', data: {
+      ...result, done: Boolean(result.done)
+    }
+  })
 }
 
 export const createTask = async (req, res) => {
