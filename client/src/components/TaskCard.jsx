@@ -1,7 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import { useTasks } from '../context/TaskContext';
 
 function TaskCard({ task }) {
   const { deleteTask } = useTasks();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -28,7 +30,7 @@ function TaskCard({ task }) {
         />{' '}
         Delete
       </button>
-      <button>
+      <button onClick={() => navigate(`/edit/${task.id}`)}>
         <img
           src='https://icongr.am/fontawesome/edit.svg?size=16&color=color=currentColor'
           alt='delete'

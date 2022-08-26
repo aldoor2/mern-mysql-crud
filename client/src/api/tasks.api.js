@@ -12,3 +12,13 @@ export const createTaskRequest = async (task) =>
 
 export const deleteTaskRequest = async (id) =>
   await axios.delete(`http://localhost:4000/api/tasks/${id}`)
+
+export const getTaskRequest = async (id) =>
+  await axios.get(`http://localhost:4000/api/tasks/${id}`)
+
+export const updateTaskRequest = async (id, updatedFields) =>
+  await axios.patch(
+    `http://localhost:4000/api/tasks/${id}`,
+    updatedFields,
+    { headers: { 'Content-Type': 'application/json' } },
+  )
