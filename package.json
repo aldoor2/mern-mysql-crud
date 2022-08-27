@@ -1,5 +1,5 @@
 {
-  "name": "mern-stack-mysql",
+  "name": "mern-mysql-crud",
   "version": "1.0.0",
   "description": "",
   "main": "server/index.js",

@@ -12,7 +12,12 @@ function TasksPage() {
   }, []);
 
   function renderMain() {
-    if (tasks.length === 0) return <h3>No tasks yet</h3>;
+    if (tasks.length === 0)
+      return (
+        <Heading as={'h3'} size={'md'} textAlign={'center'} color={'gray.500'}>
+          No tasks yet
+        </Heading>
+      );
     return tasks.map((task) => <TaskCard key={task.id} task={task} />);
   }
 
