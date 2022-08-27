@@ -1,3 +1,4 @@
+import { Box, Grid, Heading } from '@chakra-ui/react';
 import { useEffect } from 'react';
 
 import TaskCard from '../components/TaskCard';
@@ -16,10 +17,14 @@ function TasksPage() {
   }
 
   return (
-    <div>
-      <h1>Tasks</h1>
-      {renderMain()}
-    </div>
+    <Box bg='gray.800' h='90vh' px={10} pt={6}>
+      <Heading as='h2' textAlign={'center'} size='lg' mb={4}>
+        Tasks
+      </Heading>
+      <Grid templateColumns='repeat(3, 1fr)' gap={6}>
+        {renderMain()}
+      </Grid>
+    </Box>
   );
 }
 

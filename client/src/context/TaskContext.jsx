@@ -64,9 +64,33 @@ export const TaskContextProvider = ({ children }) => {
     }
   };
 
+  const toggleTaskDone = async (id) => {
+    try {
+      const taskFound = tasks.find((task) => task.id === id);
+      const response = await updateTaskRequest(id, { done: !taskFound.done });
+      setTasks(
+        tasks.map((task) => {
+          if (task.id === id) task.done = !taskFound.done;
+          return task;
+        })
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   return (
     <TaskContext.Provider
-      value={{ tasks, loadTasks, deleteTask, createTask, getTask, updateTask }}
+      value={{
+        tasks,
+        loadTasks,
+        deleteTask,
+        createTask,
+        getTask,
+        updateTask,
+        toggleTaskDone,
+      }}
     >
       {children}
     </TaskContext.Provider>
