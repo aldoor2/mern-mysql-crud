@@ -2,16 +2,18 @@
   "name": "mern-stack-mysql",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --ignore client/ --watch server server/index.js"
+    "dev": "nodemon --ignore client/ --watch server server/index.js",
+    "start": "node server/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "2.8.5",
+    "dotenv": "16.0.1",
     "express": "4.18.1",
     "morgan": "1.10.0",
     "mysql2": "2.3.3"
